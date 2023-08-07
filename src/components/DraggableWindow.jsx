@@ -6,13 +6,18 @@ export default function DraggableWindow({ children }) {
   return (
     <>
       {show && (
-        <Draggable>
-          <div className="flex flex-col w-fit items-center">
-            <div className="bg-white flex justify-between w-96 px-2 py-1">
+        <Draggable defaultPosition={{ x: 0, y: -450 }}>
+          <div className="flex flex-col w-2/3 h-[96vh] items-center">
+            <div className="bg-white flex justify-between w-full px-2 py-1">
               <h3> Window Name </h3>
-              <button className="bg-red-500 px-2" onClick={() => setShow(false)}>&times;</button>
+              <button
+                className="bg-red-500 px-2"
+                onClick={() => setShow(false)}
+              >
+                &times;
+              </button>
             </div>
-            <div className="bg-white w-full p-2">{children}</div>
+            <div className="bg-white w-full h-full p-2">{children}</div>
           </div>
         </Draggable>
       )}
