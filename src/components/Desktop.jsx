@@ -5,14 +5,23 @@ import DraggableWindow from "./DraggableWindow";
 import Browser from "./Browser";
 import DraggableIcon from "./DraggableIcon";
 import { useState } from "react";
-
+import TextEdit from "./TextEdit";
 
 export default function Desktop({ setShowMenu }) {
   const [showBrowser, setShowBrowser] = useState(false);
-  
+  const [showTextEdit, setShowTextEdit] = useState(false);
+
   const desktopIcons = [
-    { name: "Browser", icon: <BsBrowserChrome size={"4rem"} /> , action: setShowBrowser },
-    { name: "Text Edit", icon: <FaEdit size={"4rem"} /> },
+    {
+      name: "Browser",
+      icon: <BsBrowserChrome size={"4rem"} />,
+      action: () => setShowBrowser(!showBrowser),
+    },
+    {
+      name: "Text Edit",
+      icon: <FaEdit size={"4rem"} />,
+      action: () => setShowTextEdit(!showTextEdit),
+    },
     { name: "Settings", icon: <AiFillSetting size={"4rem"} /> },
   ];
 
@@ -35,7 +44,7 @@ export default function Desktop({ setShowMenu }) {
             <div
               key={icon.name}
               className="flex flex-col gap-2 items-center w-fit"
-              onClick={()=>icon.action(!showBrowser)}
+              onClick={icon.action}
             >
               {icon.icon}
               {icon.name}
@@ -43,9 +52,16 @@ export default function Desktop({ setShowMenu }) {
           </DraggableIcon>
         ))}
       </div>
-      {showBrowser && <DraggableWindow>
-        <Browser />
-      </DraggableWindow>}
+      {showBrowser && (
+        <DraggableWindow windowName={"Browser"}>
+          <Browser />
+        </DraggableWindow>
+      )}
+      {showTextEdit && (
+        <DraggableWindow windowName={"Text Edit"}>
+          <TextEdit />
+        </DraggableWindow>
+      )}
     </div>
   );
 }
